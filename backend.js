@@ -64,3 +64,33 @@ app.post('/post/users', function(req, res) {
   });
 });
 
+app.get('rest/list/', function(req, res) {
+  const id = req.query.id;
+  const created_at = req.query.created_at;
+  const updated_at = req.query.updated_at;
+  const type = req.query.type;
+  const subject = req.query.subject;
+  const description = req.query.description;
+  const priority = req.query.priority;
+  const status = req.query.status;
+  const recipient = req.query.recipient;
+  const submitter = req.query.submitter;
+  const assignee_id = req.query.assignee_id;
+  const follower_ids = req.query.follower_ids;
+  const tags = req.query.tags;
+  res.send({
+    'id': id,
+    'created_at': created_at,
+    'updated_at': updated_at,
+    'type': type,
+    'subject': subject,
+    'description': description,
+    'priority': priority,
+    'status': status,
+    'recipient': recipient,
+    'submitter': submitter,
+    'assignee_id': assignee_id,
+    'follower_ids': follower_ids,
+    'tags': tags
+  });
+});
