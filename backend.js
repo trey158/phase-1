@@ -108,3 +108,14 @@ app.get('rest/list/', function(req, res) {
     'tags': tags
   });
 });
+
+app.get('/users', function(req, res) {
+  const user_id = req.query.id;
+  const Fname = req.query.Fname;
+  const Lname = req.query.Lname;
+  res.send({
+    'user_id': user_id,
+    'Fname': Fname,
+    'Lname': Lname
+  });
+});
