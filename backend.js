@@ -64,6 +64,20 @@ app.post('/post/users', function(req, res) {
   });
 });
 
+app.post('/rest/ticket', function(request, respond) {
+  var body = '';
+  filePath = __dirname + 'mydata.txt';
+  request.on('data', function(data) {
+      body += data;
+  });
+
+  request.on('end', function (){
+      fs.appendFile(filePath, body, function() {
+          respond.end();
+      });
+  });
+});
+
 app.get('rest/list/', function(req, res) {
   const id = req.query.id;
   const created_at = req.query.created_at;
