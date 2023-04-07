@@ -1,0 +1,19 @@
+{
+  "name": "phase-1",
+  "version": "1.0.0",
+  "description": "phase 1 of database",
+  "main": "backend.js",
+  "repository": "https://github.com/trey158/phase-1",
+  "author": "Larry Wilson",
+  "license": "N/A",
+  "private": false,
+  "scripts": {
+    "start": "node backend.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
