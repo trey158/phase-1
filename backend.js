@@ -168,7 +168,7 @@ app.get('/rest/ticket/:id', (req, res) => {
   }
   
   const tickets = JSON.parse(fs.readFileSync(ticketsFile));
-  const ticket = tickets.find((t) => t.id === id);
+  const ticket = tickets.find((t) => t.id === parseInt(req.params.id));
   if (!ticket) {
     return res.status(404).send('Ticket not found');
   }
