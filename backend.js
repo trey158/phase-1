@@ -18,6 +18,10 @@ app.get('/', function(req, res) {
   res.send(outstring);
 });
 
+app.get('/write', function(req, res) {
+  res.sendFile(path.join(__dirname + '/write.html'));
+});
+
 
 // Write to a file 
 
