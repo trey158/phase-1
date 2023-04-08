@@ -109,6 +109,13 @@ app.get('rest/list/', function(req, res) {
   });
 });
 
+app.get('/rest/ticket/id', function(req, res) {
+  const id = req.query.id;
+  res.send({
+    'id': id
+  });
+});
+
 app.get('/users', function(req, res) {
   const user_id = req.query.id;
   const Fname = req.query.Fname;
