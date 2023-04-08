@@ -162,9 +162,17 @@ app.get('/rest/list', (req, res) => {
 
 // Endpoint to get a single ticket by ID
 app.get('/rest/ticket/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  if (isNaN(id)) {
+    return res.status(400).send('Invalid ID');
+  }
+  
   const tickets = JSON.parse(fs.readFileSync(ticketsFile));
-  const ticket = tickets.find((t) => t.id === parseInt(req.params.id));
-  if (!ticket) return res.status(404).send('Ticket not found');
+  const ticket = tickets.find((t) => t.id === id);
+  if (!ticket) {
+    return res.status(404).send('Ticket not found');
+  }
+  
   res.send(ticket);
 });
 
