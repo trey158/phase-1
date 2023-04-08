@@ -126,3 +126,14 @@ app.get('/users', function(req, res) {
     'Lname': Lname
   });
 });
+
+
+app.post('/write', (req, res) => {
+    const data = req.body.data;
+    fs.appendFile('mydata.txt', data + '\n', (err) => {
+        if (err) throw err;
+        console.log('Data written to file!');
+        res.send('Data written to file!');
+    });
+});
+
