@@ -25,7 +25,6 @@ client.connect((err) => {
 
 // Endpoint to get all tickets
 app.get('/rest/list', async (req, res) => {
-  console.log("Received GET request for /rest/list");
   const db = client.db(dbName);
   const collection = db.collection(collectionName);
   const tickets = await collection.find().toArray();
