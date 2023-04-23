@@ -94,4 +94,14 @@ app.put('/rest/ticket/:id', async (req, res) => {
     type: req.body.type || ticket.type,
     subject: req.body.subject || ticket.subject,
     description: req.body.description || ticket.description,
-    
+    priority: req.body.priority || ticket.priority,
+    status: req.body.status || ticket.status,
+    recipient: req.body.recipient || ticket.recipient,
+    submitter: req.body.submitter || ticket.submitter,
+    assignee_id: req.body.assignee_id || ticket.assignee_id,
+    follower_ids: req.body.follower_ids || ticket.follower_ids,
+    tags: req.body.tags || ticket.tags,
+  };
+  await collection.updateOne({ _id: ObjectID(id) }, { $set: updatedTicket });
+  res.send(updatedTicket);
+});
