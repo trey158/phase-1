@@ -106,3 +106,7 @@ app.put('/rest/ticket/:id', async (req, res) => {
   await collection.updateOne({ _id: ObjectID(id) }, { $set: updatedTicket });
   res.send(updatedTicket);
 });
+
+app.listen(3000, () => {
+  console.log('Server started on port 3000');
+});
