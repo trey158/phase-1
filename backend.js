@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 
 const uri = 'mongodb+srv://admin:CMPS415@cluster0.nttgrun.mongodb.net/?retryWrites=true&w=majority';
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-const dbName = 'ticketsdb';
+const dbName = 'ticketsDB';
 const collectionName = 'tickets';
 
 // Connect to the database
