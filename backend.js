@@ -71,6 +71,31 @@ class TicketAdapter {
   }
 }
 
+// Endpoint to get a single ticket by ID as XML
+app.get('/rest/xml/ticket/:id', async (req, res) => {
+  const id = req.params.id;
+  const db = client.db(dbName);
+  const collection = db.collection(collectionName);
+  const ticket = await collection.findOne({ _id: ObjectID(id) });
+  if (!ticket) {
+    return res.status(404).send('Ticket not found');
+  }
+  const xml = await TicketAdapter.toXML(ticket);
+  res.type('application/xml');
+  res.send(xml);
+});
+
+// Endpoint to add a single ticket that was sent as an XML document
+app.put('/rest/xml/ticket/:id', async (req, res) => {
+  const id = req.params.id;
+  const db = client.db(dbName);
+  const collection = db.collection(collectionName);
+  const xml = req.body;
+  const newTicket = await TicketAdapter.fromXML(xml);
+  const result = await collection.insertOne(newTicket);
+  res.send(newTicket);
+});
+
 // Endpoint to get all tickets
 app.get('/rest/list', async (req, res) => {
   const db = client.db(dbName);
