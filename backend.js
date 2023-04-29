@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { MongoClient, ObjectID } = require('mongodb');
 const { v4: uuidv4 } = require('uuid');
+const xml2js = require('xml2js');
 
 const app = express();
 const PORT = 3000;
@@ -22,6 +23,53 @@ client.connect((err) => {
   }
   console.log('Connected to MongoDB');
 });
+
+// Ticket adapter to convert JSON to XML
+class TicketAdapter {
+  static async toJSON(ticket) {
+    return {
+      _id: ticket._id,
+      created_at: ticket.created_at,
+      updated_at: ticket.updated_at,
+      type: ticket.type,
+      subject: ticket.subject,
+      description: ticket.description,
+      priority: ticket.priority,
+      status: ticket.status,
+      recipient: ticket.recipient,
+      submitter: ticket.submitter,
+      assignee_id: ticket.assignee_id,
+      follower_ids: ticket.follower_ids,
+      tags: ticket.tags
+    };
+  }
+
+  static async toXML(ticket) {
+    const jsonTicket = await TicketAdapter.toJSON(ticket);
+    const builder = new xml2js.Builder();
+    return builder.buildObject(jsonTicket);
+  }
+
+  static async fromXML(xml) {
+    const parser = new xml2js.Parser();
+    const json = await parser.parseStringPromise(xml);
+    return {
+      _id: new ObjectID(),
+      created_at: new Date(),
+      updated_at: new Date(),
+      type: json.ticket.type[0],
+      subject: json.ticket.subject[0],
+      description: json.ticket.description[0],
+      priority: json.ticket.priority[0],
+      status: json.ticket.status[0],
+      recipient: json.ticket.recipient[0],
+      submitter: json.ticket.submitter[0],
+      assignee_id: json.ticket.assignee_id[0],
+      follower_ids: json.ticket.follower_ids[0],
+      tags: json.ticket.tags[0]
+    };
+  }
+}
 
 // Endpoint to get all tickets
 app.get('/rest/list', async (req, res) => {
