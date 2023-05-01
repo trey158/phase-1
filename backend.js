@@ -7,6 +7,8 @@ const xml2js = require('xml2js');
 const app = express();
 const PORT = 3000;
 
+app.use(express.static('public'));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
